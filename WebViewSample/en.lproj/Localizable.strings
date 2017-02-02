@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  WebViewSample
+
+  Created by dmitry on 02/02/17.
+  Copyright © 2017 DSR. All rights reserved.
+*/
+
+"editPlaceholder" = "Edit";
+"changeURLPlaceholder" = "Change url";
+"invalidURLPlaceholder" = "Invalid url";
+"invalidURLMessagePlaceholder" = "Please, check your url once again";
+"urlPlaceholder" = "enter new url";
+"okPlaceholder" = "Ok";
+"cancelPlaceholder" = "Cancel";
