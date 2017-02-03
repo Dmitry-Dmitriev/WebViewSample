@@ -35,8 +35,10 @@
             return UIInterfaceOrientationMaskLandscapeRight;
 
         case UIInterfaceOrientationUnknown:
-        case UIInterfaceOrientationPortraitUpsideDown:
             return UIInterfaceOrientationMaskAll;
+
+        case UIInterfaceOrientationPortraitUpsideDown:
+            return UIInterfaceOrientationMaskPortraitUpsideDown;
         }
     }
     return UIInterfaceOrientationMaskAll;
