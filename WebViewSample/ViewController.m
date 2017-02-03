@@ -6,18 +6,17 @@
 //  Copyright © 2017 DSR. All rights reserved.
 //
 
-
 #import <WebKit/WebKit.h>
 #import "ViewController.h"
+#import "BareViewController.h"
 
 @interface NotificationScriptMessageHandler : NSObject <WKScriptMessageHandler>
-
 
 @end
 
 @implementation NotificationScriptMessageHandler
 
--(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
     NSLog(@"message.body %@", message.body);
     NSLog(@"message.name %@", message.name);
@@ -30,14 +29,13 @@ NSString *const urlKey = @"url";
 
 @class NotificationScriptMessageHandler;
 
-@interface ViewController () <WKNavigationDelegate>
+@interface ViewController () <WKNavigationDelegate, UIViewControllerDelegate>
 
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) NSString *webViewURLString;
 
 @property (nonatomic, strong) UIAlertAction *okAction;
 @property (nonatomic, strong) NSString *temporaryURLString;
-
 
 @end
 
@@ -53,29 +51,29 @@ NSString *const urlKey = @"url";
 {
     if (!_webView)
     {
-        //NSString *source = @"document.body.style.background = \"#643\";";
-        //NSString *source = @"window.webkit.messageHandlers.notification.postMessage('hello world!')";
+        // NSString *source = @"document.body.style.background = \"#643\";";
+        // NSString *source = @"window.webkit.messageHandlers.notification.postMessage('hello world!')";
         NSString *source = @"function timhook(){ return 'hello world';}; timhook();";
-        WKUserScript *userScript = [[WKUserScript alloc] initWithSource:source injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-        
+        WKUserScript *userScript =
+            [[WKUserScript alloc] initWithSource:source injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+
         WKUserContentController *userContentController = [[WKUserContentController alloc] init];
         [userContentController addUserScript:userScript];
-        
+
         WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
         configuration.userContentController = userContentController;
-        
+
         NotificationScriptMessageHandler *handler = [[NotificationScriptMessageHandler alloc] init];
         [userContentController addScriptMessageHandler:handler name:@"notification"];
 
         _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
         _webView.navigationDelegate = self;
         _webView.allowsBackForwardNavigationGestures = YES;
-        
-        void (^handler1)(_Nullable id sa, NSError *_Nullable error) = ^void(_Nullable id sa, NSError * _Nullable error)
-        {
-        
+
+        void (^handler1)(_Nullable id sa, NSError *_Nullable error) = ^void(_Nullable id sa, NSError *_Nullable error) {
+
         };
-        
+
         [_webView evaluateJavaScript:source completionHandler:handler1];
     }
     return _webView;
@@ -86,7 +84,7 @@ NSString *const urlKey = @"url";
     if (!_webViewURLString)
     {
         NSString *defaultsValue = [[NSUserDefaults standardUserDefaults] objectForKey:urlKey];
-        if(!defaultsValue)
+        if (!defaultsValue)
         {
             _webViewURLString = defaultURLString;
         }
@@ -98,7 +96,7 @@ NSString *const urlKey = @"url";
     return _webViewURLString;
 }
 
-- (void)loadURLString:(NSString*)urlString
+- (void)loadURLString:(NSString *)urlString
 {
     NSURL *url = [NSURL URLWithString:urlString];
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
@@ -134,27 +132,25 @@ NSString *const urlKey = @"url";
             textField.keyboardType = UIKeyboardTypeURL;
     }];
 
-    __weak typeof (self)welf = self;
-    void (^okHandler)(UIAlertAction *action) = ^void(UIAlertAction *action)
-    {
-        welf.webViewURLString = welf.temporaryURLString;
-        [welf saveURLToStorage:welf.webViewURLString];
-        [welf loadURLString:welf.webViewURLString];
+    __weak typeof(self) welf = self;
+    void (^okHandler)(UIAlertAction *action) = ^void(UIAlertAction *action) {
+            welf.webViewURLString = welf.temporaryURLString;
+            [welf saveURLToStorage:welf.webViewURLString];
+            [welf loadURLString:welf.webViewURLString];
     };
-    
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"okPlaceholder", @"OK action")
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:okHandler];
+
+    UIAlertAction *okAction =
+        [UIAlertAction actionWithTitle:NSLocalizedString(@"okPlaceholder", @"OK action") style:UIAlertActionStyleDefault handler:okHandler];
 
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancelPlaceholder", @"Cancel action")
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:nil];
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
 
     self.okAction = okAction;
 
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
-    
+
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -184,89 +180,46 @@ NSString *const urlKey = @"url";
 }
 
 #pragma mark - WKNavigationDelegate
-
-//- (void)webView:(WKWebView *)webView
-//    decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-//                    decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
-//{
-//    decisionHandler(WKNavigationActionPolicyAllow);
-//    NSLog(@"1");
-//}
-//
-//- (void)webView:(WKWebView *)webView
-//    decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
-//                      decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
-//
-//{
-//    decisionHandler(WKNavigationResponsePolicyAllow);
-//    NSLog(@"2");
-//}
-//
-//- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation
-//{
-//    NSLog(@"3");
-//}
-//
-//- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation
-//{
-//    NSLog(@"4");
-//}
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
 {
     UIAlertController *alertController =
-    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"invalidURLPlaceholder", @"Invalid url")
-                                        message:NSLocalizedString(@"invalidURLMessagePlaceholder", @"Please, check your url once again")
-                                 preferredStyle:UIAlertControllerStyleAlert];
+        [UIAlertController alertControllerWithTitle:NSLocalizedString(@"invalidURLPlaceholder", @"Invalid url")
+                                            message:NSLocalizedString(@"invalidURLMessagePlaceholder", @"Please, check your url once again")
+                                     preferredStyle:UIAlertControllerStyleAlert];
 
-    
-    __weak typeof (self)welf = self;
-    void (^okHandler)(UIAlertAction *action) = ^void(UIAlertAction *action)
-    {
-        [welf editButtonPressed];
+    __weak typeof(self) welf = self;
+    void (^okHandler)(UIAlertAction *action) = ^void(UIAlertAction *action) {
+            [welf editButtonPressed];
     };
 
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"okPlaceholder", @"OK action")
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:okHandler];
-    
+    UIAlertAction *ok =
+        [UIAlertAction actionWithTitle:NSLocalizedString(@"okPlaceholder", @"OK action") style:UIAlertActionStyleDefault handler:okHandler];
+
     [alertController addAction:ok];
     [self presentViewController:alertController animated:YES completion:nil];
 }
-//
-//- (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation
-//{
-//    NSLog(@"6");
-//}
-//
-//- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation
-//{
-//    NSLog(@"7");
-//}
-//- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
-//{
-//    NSLog(@"8");
-//}
-//
-//- (void)webView:(WKWebView *)webView
-//    didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-//                    completionHandler:
-//                        (void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *_Nullable credential))completionHandler
-//{
-//    //completionHandler(NSURLSessionAuthChallengeUseCredential, )
-//    NSLog(@"9");
-//}
-//
-//- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
-//{
-//    NSLog(@"10");
-//}
 
 #pragma mark - storage
 
--(void)saveURLToStorage:(NSString*)urlString
+- (void)saveURLToStorage:(NSString *)urlString
 {
     [[NSUserDefaults standardUserDefaults] setObject:urlString forKey:urlKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (IBAction)pressed:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    BareViewController *bareViewController = [storyboard instantiateViewControllerWithIdentifier:[[BareViewController class] description]];
+    bareViewController.delegate = self;
+    [self.navigationController pushViewController:bareViewController animated:YES];
+}
+
+#pragma mark - UIViewControllerDelegate
+
+- (UIInterfaceOrientation)parentViewControllerOrientation
+{
+    return [UIApplication sharedApplication].statusBarOrientation;
 }
 
 @end

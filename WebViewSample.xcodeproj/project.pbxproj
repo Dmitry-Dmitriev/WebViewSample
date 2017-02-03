@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A585A2F1E44B9DE007AAF70 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A585A2E1E44B9DE007AAF70 /* CustomNavigationController.m */; };
 		0AB588E51E43300900748D42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB588E41E43300900748D42 /* main.m */; };
 		0AB588E81E43300900748D42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB588E71E43300900748D42 /* AppDelegate.m */; };
 		0AB588EB1E43300900748D42 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB588EA1E43300900748D42 /* ViewController.m */; };
@@ -15,9 +16,12 @@
 		0AB588F31E43300900748D42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AB588F11E43300900748D42 /* LaunchScreen.storyboard */; };
 		0AB588FB1E4334DC00748D42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB588FA1E4334DC00748D42 /* Default-568h@2x.png */; };
 		0AB589021E4339AF00748D42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AB589001E4339AF00748D42 /* Localizable.strings */; };
+		0AFE9B8C1E447EB50099D79C /* BareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE9B8B1E447EB50099D79C /* BareViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A585A2D1E44B9DE007AAF70 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
+		0A585A2E1E44B9DE007AAF70 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		0AB588E01E43300900748D42 /* WebViewSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AB588E41E43300900748D42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0AB588E61E43300900748D42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -32,6 +36,8 @@
 		0AB588FD1E43390100748D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0AB588FF1E43390900748D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		0AB589011E4339AF00748D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0AFE9B8A1E447EB50099D79C /* BareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BareViewController.h; sourceTree = "<group>"; };
+		0AFE9B8B1E447EB50099D79C /* BareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BareViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,10 @@
 				0AB588E71E43300900748D42 /* AppDelegate.m */,
 				0AB588E91E43300900748D42 /* ViewController.h */,
 				0AB588EA1E43300900748D42 /* ViewController.m */,
+				0AFE9B8A1E447EB50099D79C /* BareViewController.h */,
+				0AFE9B8B1E447EB50099D79C /* BareViewController.m */,
+				0A585A2D1E44B9DE007AAF70 /* CustomNavigationController.h */,
+				0A585A2E1E44B9DE007AAF70 /* CustomNavigationController.m */,
 				0AB588EC1E43300900748D42 /* Main.storyboard */,
 				0AB588EF1E43300900748D42 /* Assets.xcassets */,
 				0AB588F11E43300900748D42 /* LaunchScreen.storyboard */,
@@ -161,6 +171,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AFE9B8C1E447EB50099D79C /* BareViewController.m in Sources */,
+				0A585A2F1E44B9DE007AAF70 /* CustomNavigationController.m in Sources */,
 				0AB588EB1E43300900748D42 /* ViewController.m in Sources */,
 				0AB588E81E43300900748D42 /* AppDelegate.m in Sources */,
 				0AB588E51E43300900748D42 /* main.m in Sources */,
@@ -332,6 +344,7 @@
 				0AB588F91E43300900748D42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
